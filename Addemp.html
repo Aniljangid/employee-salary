@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Dashboard</title>
+    <title>Add Employee</title>
     <link rel="stylesheet" href="Resorces/CSS/Dashboard.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -27,12 +27,22 @@
       </div>
     </nav>
     
-    <div class="container-fluid addsub">
+    <div class="container-fluid addemp">
       <div class="col-sm-10">
       </div>
       <div class="col-sm-2" class="button-wrap">
-        <a href="Addemp.html"><div class="button addbtn show-form"> <span class="btntext" style="color:#FFFFFF;">ADD EMPLOYEE</span> </div></a>
+        <div class="button addbtn show-form"> <span class="btntext" style="color:#FFFFFF;">Save</span> </div>
       </div>
+    </div>
+    <div class="container-fluid">
+      <form class="addempform">
+        <div class="form-group">
+          <input class="form-control one-edge-shadow" type="text" name="empid" id="empid" placeholder="Employee ID">
+          <input class="form-control one-edge-shadow" type="text" name="empname" id="empname" placeholder="Employee name">
+          <input class="form-control one-edge-shadow" type="text" name="empphnum" id="empphnum" placeholder="Employee Phnum">
+          <input class="form-control one-edge-shadow" type="text" name="empnbasic" id="empbasic" placeholder="Employee Basic Pay">
+        </div>
+      </form>
     </div>
   </body>
 </html>
