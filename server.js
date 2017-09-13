@@ -14,7 +14,7 @@ var conn = mysql.createConnection({
 	db : 'empsalmgt'
 })
 
-conn.connect(err) {
+conn.connect(function(err) {
 	if(!err) {
 		console.log("Connection established...");
 	}
@@ -22,7 +22,8 @@ conn.connect(err) {
 		console.log(err);
 		console.log("Connection failed...");
 	}
-}
+	conn.query('use empsalmgt;');
+});
 
 app.use(session({
   cookie: {
@@ -34,8 +35,9 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-app.use(express.static('Resorces'));
+app.use(express.static('static'));
 
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 function noCache(req, res, next) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -57,10 +59,9 @@ app.get('/',noCache,function(req,res){
 		res.sendFile(path.join(__dirname + '/login.html'));
 	}
 	else{
-		res.redirect('/dashboard')
+		res.redirect('/Dashboard')
 	}
 });
-
 
 app.get('/logout', function (req, res) {
   delete req.session.regNo;
@@ -68,21 +69,27 @@ app.get('/logout', function (req, res) {
 }); 
 
 app.get('/dashboard', checkAuth, function(req,res) {
-	console.log(req.session.admin_password);
 	req.session.dontGoBack = "true";
-  	res.sendFile(path.join(__dirname + '/dashboard.html'));
+  	res.sendFile(path.join(__dirname + '/Dashboard.html'));
+});
+
+app.get('/addemp', checkAuth, function(req,res) {
+	console.log(req.session.admin_password);
+	req.session.dontGoBack = "false";
+  	res.sendFile(path.join(__dirname + '/Addemp.html'));
 });
 
 app.post('/login', function(req,res) {
+	console.log(req.body.password);
 	var password = req.body.password;
 	if(!req.session.admin_password) {
 		conn.query('SELECT * FROM admin WHERE admin_password = ?',[password], function(error,response) {
 			if(!error){
 				if(response[0]) {
 					console.log("success");
-						req.session.admin_password = password;
-						res.send({redirect:'/dashboard',result:'success'});
-					}
+					req.session.admin_password = password;
+					res.send({redirect:'/dashboard',result:'success'});
+				}
 					else {
 						res.send({redirect:'/',result:'invalid'});
 						console.log("Incorrect password");
@@ -96,8 +103,6 @@ app.post('/login', function(req,res) {
 		console.log("Invalid password");
 		res.send({redirect:'/',result:'invalid'}); 
 	}
-	else
-		console.log('error');
 });
 
 app.listen(5555,function(){
