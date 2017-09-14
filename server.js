@@ -73,10 +73,13 @@ app.get('/dashboard', checkAuth, function(req,res) {
   	res.sendFile(path.join(__dirname + '/Dashboard.html'));
 });
 
-app.get('/addemp', checkAuth, function(req,res) {
-	console.log(req.session.admin_password);
-	req.session.dontGoBack = "false";
-  	res.sendFile(path.join(__dirname + '/Addemp.html'));
+
+app.get('/addEmp', checkAuth, function(req,res) {
+  res.sendFile(path.join(__dirname + '/Addemp.html'));
+});
+
+app.post('/addemp', function(req,res) {
+	res.send({redirect:'/addEmp',result:'success'});
 });
 
 app.post('/login', function(req,res) {
