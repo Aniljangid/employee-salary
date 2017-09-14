@@ -24,7 +24,7 @@ $(document).ready(function(){  //loads when the page is loaded
 
     $.ajax({          // ajax call is used to send data to backend (php)
       type: 'POST',   // type of request (POST or GET)
-      url: 'http://192.168.43.31:5555/login', // where do you want to send your data
+      url: 'http://192.168.43.59:5555/login', // where do you want to send your data
       data: { password: password },   //what type of data is it
       encode: true
     }).done(function(res) {   //done function is executed after the php code is done executing
@@ -37,5 +37,5 @@ $(document).ready(function(){  //loads when the page is loaded
       }
     })
   })
-  
+
 })
