@@ -108,6 +108,24 @@ app.post('/login', function(req,res) {
 	}
 });
 
+app.post('/insert', function(req,res) {
+	var empId = req.body.empId;
+	var empName = req.body.empName;
+	var phone = req.body.phone;
+	var basicPay = req.body.basicPay;
+	if(req.session.admin_password) {
+		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay) values (?,?,?,?)',[empId,empName,phone,basicPay], function(err,res) {
+			if(!err) {
+				console.log('Insertion successfull');
+				res.send({result:'success'});
+			}
+			else {
+				res.send({result:'failed'});
+			}
+		})
+	}
+})
+
 app.listen(5555,function(){
 	console.log("Server running at port 5555");
 })
