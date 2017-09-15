@@ -21,7 +21,7 @@ $(document).ready(function(){
     
     $.ajax({
       type: 'POST',
-      url: 'http://192.168.43.31:5555/insert',
+      url: 'http://localhost:5555/insert',
       data: FormData,
       datatype: 'json',
       encode: true
