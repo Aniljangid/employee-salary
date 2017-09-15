@@ -64,7 +64,7 @@ app.get('/',noCache,function(req,res){
 });
 
 app.get('/logout', function (req, res) {
-  delete req.session.regNo;
+  delete req.session.admin_password;
   res.send({redirect:'/',result:'logout'});
 }); 
 
@@ -115,11 +115,7 @@ app.post('/insert', function(req,res) {
 	var phone = req.body.phone;
 	var basicPay = req.body.basicPay;
 	if(req.session.admin_password) {
-<<<<<<< HEAD
-		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay) values (?,?,?,?)',[empId,empName,phone,basicPay], function(err) {
-=======
-		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?)',[empId,empName,phone,basicPay,0,0,0], function(err,res) {
->>>>>>> 7db1af3a5dc2586aedff0949e74f914502551105
+		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?)',[empId,empName,phone,basicPay,0,0,0], function(err) {
 			if(!err) {
 				console.log('Insertion successfull');
 				res.send({result:'success'});
@@ -134,13 +130,13 @@ app.post('/insert', function(req,res) {
 app.post('/display',function(req,res) {
 	var count;
 	if(req.session.admin_password) {
-		conn.query('SELECT count(*) FROM empdetails',function(err,res) {
+		conn.query('SELECT count(*) AS count FROM empdetails',function(err,res) {
 			count = res;
 		});
 		conn.query('SELECT * FROM empdetails',function(err,response) { //names response to avoid conflict
-			if(!error) {
-				console.log(response)
-				res.send({result:[count,response]});
+			if(!err) {
+				//console.log(response);
+				res.send({count:count,result:response});
 			}
 			else {
 				res.send({result:error})

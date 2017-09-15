@@ -27,3 +27,7 @@
 .table{
   margin-top: 40px;
 }
+
+.logoutbtn{
+  cursor: pointer;
+}
