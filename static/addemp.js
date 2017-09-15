@@ -9,7 +9,7 @@ $(document).ready(function(){
     
     $.ajax({
       type: 'POST',
-      url: 'http://192.168.43.31:5555/insert',
+      url: 'http://localhost:5555/insert',
       data: FormData,
       datatype: 'json',
       encode: true
@@ -22,7 +22,7 @@ $(document).ready(function(){
     $('.logoutbtn').click(function(){
       $.ajax({
           type: 'GET',
-          url: 'http://192.168.43.31:5555/logout',
+          url: 'http://localhost:5555/logout',
           encode: true
         }).done(function(res){
           window.location = res.redirect;

@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   $.ajax({
     type: 'POST',
-    url: 'http://192.168.43.31:5555/display',
+    url: 'http://localhost:5555/display',
     encode: true
   }).done(function(res){
     console.log(res.result[0].id);
@@ -37,7 +37,7 @@ $(document).ready(function(){
   $('.logoutbtn').click(function(){
     $.ajax({
       type: 'GET',
-      url: 'http://192.168.43.31:5555/logout',
+      url: 'http://localhost:5555/logout',
       encode: true
     }).done(function(res){
       window.location = res.redirect;
@@ -48,7 +48,7 @@ $(document).ready(function(){
     console.log("test");
     $.ajax({
       type: 'POST',
-      url: 'http://192.168.43.31:5555/addemp',
+      url: 'http://localhost:5555/addemp',
       encode: true
     }).done(function(res){
       window.location = res.redirect;
