@@ -114,13 +114,31 @@ app.post('/insert', function(req,res) {
 	var phone = req.body.phone;
 	var basicPay = req.body.basicPay;
 	if(req.session.admin_password) {
-		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay) values (?,?,?,?)',[empId,empName,phone,basicPay], function(err,res) {
+		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?)',[empId,empName,phone,basicPay,0,0,0], function(err,res) {
 			if(!err) {
 				console.log('Insertion successfull');
 				res.send({result:'success'});
 			}
 			else {
 				res.send({result:'failed'});
+			}
+		})
+	}
+})
+
+app.post('/display',function(req,res) {
+	var count;
+	if(req.session.admin_password) {
+		conn.query('SELECT count(*) FROM empdetails',function(err,res) {
+			count = res;
+		});
+		conn.query('SELECT * FROM empdetails',function(err,response) { //names response to avoid conflict
+			if(!error) {
+				console.log(response)
+				res.send({result:[count,response]});
+			}
+			else {
+				res.send({result:error})
 			}
 		})
 	}
