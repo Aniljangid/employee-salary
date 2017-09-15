@@ -4,7 +4,7 @@ $(document).ready(function(){
     console.log("test");
     $.ajax({
       type: 'POST',
-      url: 'http://192.168.43.59:5555/addemp',
+      url: 'http://localhost:5555/addemp',
       encode: true
     }).done(function(res){
       window.location = res.redirect;
