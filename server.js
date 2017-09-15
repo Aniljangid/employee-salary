@@ -93,18 +93,14 @@ app.post('/login', function(req,res) {
 					req.session.admin_password = password;
 					res.send({redirect:'/dashboard',result:'success'});
 				}
-					else {
-						res.send({redirect:'/',result:'invalid'});
-						console.log("Incorrect password");
-					}
+				else {
+					res.send({redirect:'/',result:'invalid'});
+					console.log("Incorrect password");
 				}
-				else
-					console.log(error);
-				});
 			}
-	else {
-		console.log("Invalid password");
-		res.send({redirect:'/',result:'invalid'}); 
+			else
+				console.log(error);
+		});
 	}
 });
 
@@ -131,8 +127,11 @@ app.post('/display',function(req,res) {
 	var count;
 	if(req.session.admin_password) {
 		conn.query('SELECT count(*) AS count FROM empdetails',function(err,res) {
-			count = res;
-		});
+			if(!err) {
+				count = res;	
+			}
+			
+		}); 
 		conn.query('SELECT * FROM empdetails',function(err,response) { //names response to avoid conflict
 			if(!err) {
 				//console.log(response);
