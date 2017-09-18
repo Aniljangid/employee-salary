@@ -2,11 +2,7 @@ $(document).ready(function(){
 
   $.ajax({
     type: 'POST',
-<<<<<<< HEAD
-    url: 'http://192.168.43.31:5555/display',
-=======
     url: 'http://localhost:5555/display',
->>>>>>> master
     encode: true
   }).done(function(res){
     console.log(res.result[0].id);
@@ -41,11 +37,7 @@ $(document).ready(function(){
   $('.logoutbtn').click(function(){
     $.ajax({
       type: 'GET',
-<<<<<<< HEAD
-      url: 'http://192.168.43.31:5555/logout',
-=======
       url: 'http://localhost:5555/logout',
->>>>>>> master
       encode: true
     }).done(function(res){
       window.location = res.redirect;
@@ -56,11 +48,7 @@ $(document).ready(function(){
     console.log("test");
     $.ajax({
       type: 'POST',
-<<<<<<< HEAD
-      url: 'http://192.168.43.31:5555/addemp',
-=======
       url: 'http://localhost:5555/addemp',
->>>>>>> master
       encode: true
     }).done(function(res){
       window.location = res.redirect;
