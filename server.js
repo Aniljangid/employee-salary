@@ -112,9 +112,10 @@ app.post('/insert', function(req,res) {
 	var basicPay = req.body.basicPay;
 	if(req.session.admin_password) {
 		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?)',[empId,empName,phone,basicPay,0,0,0], function(err) {
+			console.log(err);
 			if(!err) {
 				console.log('Insertion successfull');
-				res.send({result:'success'});
+				res.send({redirect:'/dashboard',result:'success'});
 			}
 			else {
 				res.send({result:'failed'});
@@ -139,6 +140,17 @@ app.post('/display',function(req,res) {
 			}
 			else {
 				res.send({result:error})
+			}
+		})
+	}
+})
+
+app.post('/delete',function(req,res) {
+	var id = req.body.id;
+	if(req.session.admin_password) {
+		conn.query('DELETE FROM empsalmgt WHERE id = ?',[id],function(err,response) {
+			if(!err) {
+				res.send({redirect:'/dashboard',result:response})
 			}
 		})
 	}
