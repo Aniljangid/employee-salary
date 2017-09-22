@@ -9,6 +9,7 @@ $(document).ready(function(){
     
     $.ajax({
       type: 'POST',
+
       url: 'http://localhost:5555/insert',
       data: FormData,
       datatype: 'json',
