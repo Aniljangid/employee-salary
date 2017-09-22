@@ -15,7 +15,7 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].adv + '</td>')
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
        $('.tablerow' + i).append('<td><button type="button" id="editbtn' + res.result[i].id + '" class="btn btn-primary editbtn">Edit</button></td>')
-       $('.tablerow' + i).append('<td><button type="button" id="delbtn' + res.result[i].id + '" class="btn btn-primary delbtn">del</button></td>')
+       $('.tablerow' + i).append('<td><button type="button" id="delbtn' + res.result[i].id + '" class="btn btn-danger delbtn">Delete</button></td>')
      }
      
      $(".editbtn").click(function(){
