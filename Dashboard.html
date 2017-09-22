@@ -55,6 +55,63 @@
     </tbody>
   </table>
     </div>
+    <div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4><span class="glyphicon glyphicon-pencil"></span> Edit</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <form role="form">
+                <div class="row">
+                <div class="form-group col-xs-6">
+                  <label>ID</label>
+                  <input type="text" class="form-control" id="empid">
+                </div>
+                <div class="form-group col-xs-6">
+                  <label>Name</label>
+                  <input type="text" class="form-control" id="empname">
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-xs-6">
+                  <label>attendance</label>
+                  <input type="text" class="form-control" id="empattendance">
+                </div>
+                <div class="form-group col-xs-6">
+                  <label>basicpay</label>
+                  <input type="text" class="form-control" id="basicpay">
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-xs-6">
+                  <label>advance</label>
+                  <input type="text" class="form-control" id="advance">
+                </div>
+                <div class="form-group col-xs-6">
+                  <label>total</label>
+                  <input type="text" class="form-control" id="total">
+                </div>
+</div>
+                  <button type="submit" class="btn btn-success btn-primary pull-right">Save</button>
+                  <button type="submit" class="btn btn-success btn-danger pull-left" data-dismiss="modal">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script>
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+      $("#myModal").modal();
+  });
+});
+
+
+</script>
     <script src="Dashboard.js"></script>
   </body>
 </html>
