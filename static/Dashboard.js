@@ -18,9 +18,9 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
        $('.tablerow' + i).append('<td><button type="button" id="' + res.result[i].id + '" class="btn btn-primary">Edit</button></td>')
      }
-     
+
      $('.chkall').click(function() {
-       
+
        if($('.chkall').prop('checked')== true){
          for (var i = 0; i < res.count[0].count; i++) {
            $('.chk' + i).prop('checked', true);
@@ -30,10 +30,10 @@ $(document).ready(function(){
            $('.chk' + i).prop('checked', false);
          }
        }
-       
+
 });
   })
-  
+
   $('.logoutbtn').click(function(){
     $.ajax({
       type: 'GET',
@@ -44,7 +44,7 @@ $(document).ready(function(){
     })
   })
 
-  $('.addbtn').click(function(){
+  $('.add').click(function(){
     console.log("test");
     $.ajax({
       type: 'POST',
@@ -54,7 +54,7 @@ $(document).ready(function(){
       window.location = res.redirect;
     })
   })
-  
+
 })
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
