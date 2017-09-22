@@ -161,11 +161,15 @@ app.post('/edit',function(req,res) {
 })
 
 app.post('/delete',function(req,res) {
-	var id = req.body.result;
+	var id = req.body.delresult;
+	console.log(id);
 	if(req.session.admin_password) {
-		conn.query('DELETE FROM empsalmgt WHERE id = ?',[id],function(err,response) {
+		conn.query('DELETE FROM empdetails WHERE id = ?',[id],function(err,response) {
 			if(!err) {
+				console.log("record deleted");
 				res.send({redirect:'/dashboard',result:response})
+			} else {
+				console.log("error: " + err);
 			}
 		})
 	}
