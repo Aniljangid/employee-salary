@@ -27,8 +27,13 @@ $(document).ready(function(){
            data: { result : result },
            url: 'http://localhost:5555/edit',
            encode: true
-         }).done(function(){
-           
+         }).done(function(res){
+           $('#empid').val(res.result[0].id);
+           $('#empname').val(res.result[0].name);
+           $('#empattendance').val(res.result[0].att);
+           $('#basicpay').val(res.result[0].basicpay);
+           $('#advance').val(res.result[0].adv);
+           $('#total').val(res.result[0].totalsal);
          })
      });
 
