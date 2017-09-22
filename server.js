@@ -145,6 +145,21 @@ app.post('/display',function(req,res) {
 	}
 })
 
+app.post('/edit',function(req,res) {
+	var id = req.body.id;
+	if(req.session.admin_password) {
+		conn.query('SELECT * FROM empdetails WHERE id=?',[id],function(err,response) { //names response to avoid conflict
+			if(!err) {
+				//console.log(response);
+				res.send({count:count,result:response});
+			}
+			else {
+				res.send({result:error})
+			}
+		})
+	}
+})
+
 app.post('/delete',function(req,res) {
 	var id = req.body.id;
 	if(req.session.admin_password) {
