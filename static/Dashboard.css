@@ -34,3 +34,16 @@
 .add{
   margin-left: 80px !important;
 }
+
+.addatt{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 20px !important;
+  margin-right: 20px;
+}
+
+.delbtn{
+  background-color: #F95C3C !important;
+  border-color: transparent !important;
+}
