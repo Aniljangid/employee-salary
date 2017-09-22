@@ -21,10 +21,10 @@ $(document).ready(function(){
      $(".editbtn").click(function(){
          $("#myModal").modal();
          var editbtn_id = $(this).attr('id');
-         alert(editbtn_id);
+         var result = editbtn_id.substring(7);
          $.ajax({
            type: 'POST',
-           data: { editbtn_id : editbtn_id },
+           data: { result : result },
            url: 'http://localhost:5555/edit',
            encode: true
          }).done(function(){
