@@ -15,6 +15,7 @@ $(document).ready(function(){
       encode: true
     }).done(function(res){
       console.log(res);
+      window.location = res.redirect;
       console.log("insert into database");
     })
   })

@@ -5,8 +5,6 @@ $(document).ready(function(){
     url: 'http://localhost:5555/display',
     encode: true
   }).done(function(res){
-    console.log(res.result[0].id);
-    console.log(res.count[0].count);
      for (var i = 0; i < res.count[0].count; i++) {
        $('.table-body').append('<tr class="tablerow' + i + ' tablerow"></tr>')
        $('.tablerow' + i).append('<td><input type="checkbox" id="' + res.result[i].id + 'chk" class="chk' + i + '"></td>')
@@ -17,6 +15,7 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].adv + '</td>')
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
        $('.tablerow' + i).append('<td><button type="button" id="myBtn" class="btn btn-primary">Edit</button></td>')
+
      }
 
      $('.chkall').click(function() {
@@ -30,9 +29,21 @@ $(document).ready(function(){
            $('.chk' + i).prop('checked', false);
          }
        }
+  });
 
-});
-  })
+  $('.btn-danger').click(function() {
+    console.log("HERE")
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: 'http://localhost:5555/delete',
+  //     data: { id: password },//attach clicked button id here
+  //     encode: true
+  //   }).done(function(res){
+  //     window.location = res.redirect;
+  //   })
+   });
+})
+
 
   $('.logoutbtn').click(function(){
     $.ajax({
