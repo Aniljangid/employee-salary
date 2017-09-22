@@ -31,3 +31,6 @@
 .logoutbtn{
   cursor: pointer;
 }
+.add{
+  margin-left: 80px !important;
+}
