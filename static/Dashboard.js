@@ -14,7 +14,7 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].basicpay + '</td>')
        $('.tablerow' + i).append('<td>' + res.result[i].adv + '</td>')
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
-       $('.tablerow' + i).append('<td><button type="button" id="myBtn" class="btn btn-primary">Edit</button></td>')
+       $('.tablerow' + i).append('<td><button type="button" id="editbtn' + res.result[i].id + '" class="btn btn-primary">Edit</button></td>')
 
      }
 
