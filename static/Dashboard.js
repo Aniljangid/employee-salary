@@ -15,7 +15,7 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].adv + '</td>')
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
        $('.tablerow' + i).append('<td><button type="button" id="editbtn' + res.result[i].id + '" class="btn btn-primary editbtn">Edit</button></td>')
-
+       $('.tablerow' + i).append('<td><button type="button" id="delbtn' + res.result[i].id + '" class="btn btn-primary delbtn">del</button></td>')
      }
      
      $(".editbtn").click(function(){
@@ -34,8 +34,22 @@ $(document).ready(function(){
            $('#basicpay').val(res.result[0].basicpay);
            $('#advance').val(res.result[0].adv);
            $('#total').val(res.result[0].totalsal);
-         })
+         })   
      });
+     
+     $('.delbtn').click(function() {
+       console.log("HERE")
+       var delbtn_id = $(this).attr('id');
+       var delresult = delbtn_id.substring(6);
+       $.ajax({
+         type: 'POST',
+         url: 'http://localhost:5555/delete',
+         data: { delresult: delresult },//attach clicked button id here
+         encode: true
+       }).done(function(res){
+         window.location = res.redirect;
+       })
+      });
 
      $('.chkall').click(function() {
 
@@ -50,17 +64,7 @@ $(document).ready(function(){
        }
   });
 
-  $('.btn-danger').click(function() {
-    console.log("HERE")
-  //   $.ajax({
-  //     type: 'POST',
-  //     url: 'http://localhost:5555/delete',
-  //     data: { result: result },//attach clicked button id here
-  //     encode: true
-  //   }).done(function(res){
-  //     window.location = res.redirect;
-  //   })
-   });
+  
 })
 
 
