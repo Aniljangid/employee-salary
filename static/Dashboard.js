@@ -50,7 +50,7 @@ $(document).ready(function(){
   //   $.ajax({
   //     type: 'POST',
   //     url: 'http://localhost:5555/delete',
-  //     data: { id: password },//attach clicked button id here
+  //     data: { result: result },//attach clicked button id here
   //     encode: true
   //   }).done(function(res){
   //     window.location = res.redirect;

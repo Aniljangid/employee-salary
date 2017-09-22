@@ -146,12 +146,12 @@ app.post('/display',function(req,res) {
 })
 
 app.post('/edit',function(req,res) {
-	var id = req.body.id;
+	var id = req.body.result;
 	if(req.session.admin_password) {
 		conn.query('SELECT * FROM empdetails WHERE id=?',[id],function(err,response) { //names response to avoid conflict
 			if(!err) {
-				//console.log(response);
-				res.send({count:count,result:response});
+				console.log(response);
+				res.send({result:response});
 			}
 			else {
 				res.send({result:error})
@@ -161,7 +161,7 @@ app.post('/edit',function(req,res) {
 })
 
 app.post('/delete',function(req,res) {
-	var id = req.body.id;
+	var id = req.body.result;
 	if(req.session.admin_password) {
 		conn.query('DELETE FROM empsalmgt WHERE id = ?',[id],function(err,response) {
 			if(!err) {
