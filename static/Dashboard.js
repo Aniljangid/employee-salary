@@ -81,6 +81,7 @@ $(document).ready(function(){
       url: 'http://localhost:5555/updateatt',
       data: { empatt : empatt },
       encode: true
+
     }).done(function(res){
       window.location = res.redirect;
     })
