@@ -205,7 +205,7 @@ app.post('/saveedit',function(req,res){
 	var empadv = req.body.empadv;
 	var emptotal = req.body.emptotal;
 	
-	var tot = basicpay * empatt;
+	var tot = basicpay * empatt - empadv;
 	
 	conn.query('UPDATE empdetails SET name = ?, phnum = ?, basicpay = ?, adv = ?, att = ?, totalsal = ? WHERE id = ?',[empname, phnum, basicpay, empadv, empatt, tot, empid],function(err,response){
 		if (!err) {
