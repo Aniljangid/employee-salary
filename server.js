@@ -196,6 +196,27 @@ app.post('/updateatt',function(req,res){
 	res.send({redirect:'/dashboard'})
 })
 
+app.post('/saveedit',function(req,res){
+	var empid = req.body.empid;
+	var empname = req.body.empname;
+	var phnum = req.body.phnum;
+	var empatt = req.body.empatt;
+	var basicpay = req.body.basicpay;
+	var empadv = req.body.empadv;
+	var emptotal = req.body.emptotal;
+	
+	var tot = basicpay * empatt;
+	
+	conn.query('UPDATE empdetails SET name = ?, phnum = ?, basicpay = ?, adv = ?, att = ?, totalsal = ? WHERE id = ?',[empname, phnum, basicpay, empadv, empatt, tot, empid],function(err,response){
+		if (!err) {
+			console.log("edit successfull");
+		} else {
+			console.log("error: " + err);
+		}
+	})
+	res.send({redirect:'/dashboard'})
+})
+
 app.listen(5555,function(){
 	console.log("Server running at port 5555");
 })

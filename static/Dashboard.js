@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+  $("#empid").attr("disabled", "disabled");
+  $("#total").attr("disabled", "disabled");
+
   $.ajax({
     type: 'POST',
     url: 'http://localhost:5555/display',
@@ -30,6 +33,7 @@ $(document).ready(function(){
          }).done(function(res){
            $('#empid').val(res.result[0].id);
            $('#empname').val(res.result[0].name);
+           $('#phnum').val(res.result[0].phnum);
            $('#empattendance').val(res.result[0].att);
            $('#basicpay').val(res.result[0].basicpay);
            $('#advance').val(res.result[0].adv);
@@ -75,20 +79,46 @@ $(document).ready(function(){
         empatt.push(attresult);
       }
     }
-    console.log(empatt);
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:5555/updateatt',
-      data: { empatt : empatt },
-      encode: true
-
-    }).done(function(res){
-      window.location = res.redirect;
-    })
+    if(empatt.length > 0){
+      console.log(empatt);
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:5555/updateatt',
+        data: { empatt : empatt },
+        encode: true
+      }).done(function(res){
+        window.location = res.redirect;
+      })
+    } else {
+      console.log("array is empty");
+    }
   });
   
 })
 
+
+$('#saveedit').click(function(){
+  var FormData={
+     empid : $('#empid').val(),
+     empname : $('#empname').val(),
+     phnum : $('#phnum').val(),
+     empatt : $('#empattendance').val(),
+     basicpay : $('#basicpay').val(),
+     empadv : $('#advance').val(),
+     emptotal : $('#total').val()
+  };
+  
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:5555/saveedit',
+    data: FormData,
+    datatype: 'json',
+    encode: true
+  }).done(function(res){
+    console.log("saved changes");
+    window.location = res.redirect;
+  })
+})
 
   $('.logoutbtn').click(function(){
     $.ajax({
