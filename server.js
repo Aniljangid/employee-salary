@@ -174,6 +174,28 @@ app.post('/delete',function(req,res) {
 	}
 })
 
+app.post('/updateatt',function(req,res){
+	var arr = [];
+	for(var i=0; i<req.body.empatt.length; i++){
+		var id = req.body.empatt[i];
+		console.log("id: "+id);
+		conn.query('SELECT * FROM empdetails WHERE id = ?',[id],function(err,response) {
+			att =  response[0].att + 1;
+			total = response[0].basicpay * att - response[0].adv;
+			empid = response[0].id;
+			conn.query('UPDATE empdetails SET att = ?, totalsal = ? WHERE id = ?',[att,total,empid],function(err,response){
+				if(!err){
+					console.log("inserted");
+					console.log(response);
+				} else {
+					console.log("error: " + err);
+				}
+			})
+		})
+	}
+	res.send({redirect:'/dashboard'})
+})
+
 app.listen(5555,function(){
 	console.log("Server running at port 5555");
 })
