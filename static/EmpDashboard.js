@@ -13,4 +13,15 @@ $(document).ready(function(){
     $('.tablerow' + 0).append('<td>' + res.result[0].adv + '</td>')
     $('.tablerow' + 0).append('<td>' + res.result[0].totalsal + '</td>')
   })
+  
+  $('.logoutbtn').click(function(){
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:5555/logout',
+      encode: true
+    }).done(function(res){
+      window.location = res.redirect;
+    })
+  })
+  
 })
