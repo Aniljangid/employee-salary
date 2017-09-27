@@ -2,13 +2,13 @@ $(function() {
 
   $('#login-form-link').click(function(e) {
       $("#login-form").delay(100).fadeIn(100);
-       $("#register-form").fadeOut(100);
+       $("#emp-login-form").fadeOut(100);
          $('#register-form-link').removeClass('active');
            $(this).addClass('active');
              e.preventDefault();
             });
              $('#register-form-link').click(function(e) {
-                 $("#register-form").delay(100).fadeIn(100);
+                 $("#emp-login-form").delay(100).fadeIn(100);
           $("#login-form").fadeOut(100);
           $('#login-form-link').removeClass('active');
            $(this).addClass('active');
@@ -34,6 +34,30 @@ $(document).ready(function(){  //loads when the page is loaded
       }
       if(res.result == "invalid"){
         $('.errordiv').css('display', 'block'); //displays the error message
+      }
+    })
+  })
+  
+  $("#emp-submit").click(function(e){
+    e.preventDefault();
+    var FormData = {
+      password : $('#emp_password').val(),
+      id : $('#emp_username').val()
+    };
+    
+    $.ajax({          
+      type: 'POST',  
+      url: 'http://localhost:5555/loginEmp',
+      data: FormData,   
+      datatype: 'json',
+      encode: true
+    }).done(function(res) {   
+      if(res.result=="success") {
+        $('.errordiv').css('display', 'none'); 
+        window.location = res.redirect;
+      }
+      if(res.result == "invalid"){
+        $('.errordiv').css('display', 'block');
       }
     })
   })
