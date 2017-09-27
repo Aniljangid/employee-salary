@@ -131,8 +131,14 @@ app.post('/loginEmp', function(req,res) {
 	})
 })
 
-app.get('/getId', function(req,res) {
-	res.send({result:req.session.employee});
+app.get('/getDetails', function(req,res) {
+	if(req.session.employee) {
+		conn.query('SELECT * FROM empdetails WHERE id=?',[req.session.employee], function(err,response) {
+			if(!err) {
+				res.send({result:response});
+			}
+		})
+	}
 })
 
 app.get('/addemp', checkAuth, function(req,res) {
