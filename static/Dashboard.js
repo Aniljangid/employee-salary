@@ -83,8 +83,8 @@ $(document).ready(function(){
       console.log(empatt);
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:5555/updateatt',
-        data: { empatt : empatt },
+        url: 'http://localhost:5555/updateAtt',
+        data: { empAtt : empatt },
         encode: true
       }).done(function(res){
         window.location = res.redirect;
@@ -110,7 +110,7 @@ $('#saveedit').click(function(){
   
   $.ajax({
     type: 'POST',
-    url: 'http://localhost:5555/saveedit',
+    url: 'http://localhost:5555/saveEdit',
     data: FormData,
     datatype: 'json',
     encode: true
@@ -134,7 +134,7 @@ $('#saveedit').click(function(){
     console.log("test");
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:5555/addemp',
+      url: 'http://localhost:5555/addEmp',
       encode: true
     }).done(function(res){
       window.location = res.redirect;
