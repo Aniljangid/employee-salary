@@ -40,9 +40,9 @@ $(document).ready(function(){  //loads when the page is loaded
   
   $("#emp-submit").click(function(e){
     e.preventDefault();
-    var FormData{
+    var FormData = {
       password : $('#emp_password').val(),
-      username : $('#emp_username').val()
+      id : $('#emp_username').val()
     };
     
     $.ajax({          
