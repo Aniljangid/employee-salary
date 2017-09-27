@@ -47,3 +47,12 @@
   background-color: #F95C3C !important;
   border-color: transparent !important;
 }
+
+/*-----------------------------------------------Employee Dashboard---------------------------------------------------------------------*/
+
+.infobox{
+  width: 100%;
+  height: 200px;
+  background-color: red;
+  margin: 2px;
+}
