@@ -104,6 +104,26 @@ app.post('/login', function(req,res) {
 	}
 });
 
+app.post('/loginEmp', function(req,res) {
+	var username = req.body.id;
+	var password = req.body.password;
+	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[username,password], function(err,response){
+		if(!err){
+			try {
+				var matchedUser = JSON.stringify(response[0].username) 
+				console.log("success");
+				res.send({redirect:'/dashboard',result:'success'});
+			}
+			catch(err) {
+				res.send({redirect:'/',result:'invalid'});
+				console.log("Incorrect password");
+			}
+		}
+		else
+			console.log(err);
+	})
+})
+
 app.post('/insert', function(req,res) {
 	console.log('here');
 	var empId = req.body.empId;
