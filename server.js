@@ -76,6 +76,7 @@ app.get('/',noCache,function(req,res){
 
 app.get('/logout', function (req, res) {
   delete req.session.admin;
+  delete req.session.employee;
   res.send({redirect:'/',result:'logout'});
 }); 
 
