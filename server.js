@@ -47,7 +47,15 @@ function noCache(req, res, next) {
 }
 
 function checkAuth(req, res, next) {
- 	if (!req.session.admin_password) {
+ 	if (!req.session.admin) {
+    	res.send('Not Authorized');
+  	} else {
+  		next();
+  	}
+}
+
+function checkAuthEmp(req, res, next) {
+ 	if (!req.session.employee) {
     	res.send('Not Authorized');
   	} else {
   		next();
@@ -55,16 +63,19 @@ function checkAuth(req, res, next) {
 }
 
 app.get('/',noCache,function(req,res){
-	if(!req.session.admin_password) {
-		res.sendFile(path.join(__dirname + '/login.html'));
+	if(req.session.admin) {
+		res.redirect('/dashboard');
 	}
-	else{
-		res.redirect('/Dashboard')
+	else if(req.session.employee) {
+		res.redirect('/dashboardEmp');	
+	}
+	else {
+		res.sendFile(path.join(__dirname + '/login.html'));
 	}
 });
 
 app.get('/logout', function (req, res) {
-  delete req.session.admin_password;
+  delete req.session.admin;
   res.send({redirect:'/',result:'logout'});
 }); 
 
@@ -73,24 +84,20 @@ app.get('/dashboard', checkAuth, function(req,res) {
   	res.sendFile(path.join(__dirname + '/Dashboard.html'));
 });
 
-
-app.get('/addemp', checkAuth, function(req,res) {
-  res.sendFile(path.join(__dirname + '/Addemp.html'));
-});
-
-app.post('/addEmp', function(req,res) {
-	res.send({redirect:'/addemp',result:'success'});
-});
+app.get('/dashboardEmp', checkAuthEmp, function(req,res) {
+	req.session.dontGoBack = "true";
+	res.sendFile(path.join(__dirname + '/EmployeeDashboard.html'));
+})
 
 app.post('/login', function(req,res) {
 	console.log(req.body.password);
 	var password = req.body.password;
-	if(!req.session.admin_password) {
+	if(!req.session.admin) {
 		conn.query('SELECT * FROM admin WHERE admin_password = ?',[password], function(error,response) {
 			if(!error){
 				if(response[0]) {
 					console.log("success");
-					req.session.admin_password = password;
+					req.session.admin = password;
 					res.send({redirect:'/dashboard',result:'success'});
 				}
 				else {
@@ -110,9 +117,9 @@ app.post('/loginEmp', function(req,res) {
 	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[username,password], function(err,response){
 		if(!err){
 			try {
-				var matchedUser = JSON.stringify(response[0].username) 
+				req.session.employee = username;
 				console.log("success");
-				res.send({redirect:'/dashboard',result:'success'});
+				res.send({redirect:'/dashboardEmp',result:'success'});
 			}
 			catch(err) {
 				res.send({redirect:'/',result:'invalid'});
@@ -124,6 +131,20 @@ app.post('/loginEmp', function(req,res) {
 	})
 })
 
+app.get('/getId', function(req,res) {
+	res.send({result:req.session.employee});
+})
+
+app.get('/addemp', checkAuth, function(req,res) {
+  res.sendFile(path.join(__dirname + '/Addemp.html'));
+});
+
+app.post('/addEmp', function(req,res) {
+	if(req.session.admin) {
+		res.send({redirect:'/addemp',result:'success'});
+	}
+});
+
 app.post('/insert', function(req,res) {
 	console.log('here');
 	var empId = req.body.empId;
@@ -131,7 +152,7 @@ app.post('/insert', function(req,res) {
 	var empPassword = req.body.empPassword;
 	var phone = req.body.phone;
 	var basicPay = req.body.basicPay;
-	if(req.session.admin_password) {
+	if(req.session.admin) {
 		conn.query('INSERT INTO empdetails (id,name,password,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?,?)',[empId,empName,empPassword,phone,basicPay,0,0,0], function(err) {
 			console.log(err);
 			if(!err) {
@@ -147,7 +168,7 @@ app.post('/insert', function(req,res) {
 
 app.post('/display',function(req,res) {
 	var count;
-	if(req.session.admin_password) {
+	if(req.session.admin) {
 		conn.query('SELECT count(*) AS count FROM empdetails',function(err,res) {
 			if(!err) {
 				count = res;	
@@ -168,7 +189,7 @@ app.post('/display',function(req,res) {
 
 app.post('/edit',function(req,res) {
 	var id = req.body.result;
-	if(req.session.admin_password) {
+	if(req.session.admin) {
 		conn.query('SELECT * FROM empdetails WHERE id=?',[id],function(err,response) { //names response to avoid conflict
 			if(!err) {
 				res.send({result:response});
@@ -183,7 +204,7 @@ app.post('/edit',function(req,res) {
 app.post('/delete',function(req,res) {
 	var id = req.body.delresult;
 	console.log(id);
-	if(req.session.admin_password) {
+	if(req.session.admin) {
 		conn.query('DELETE FROM empdetails WHERE id = ?',[id],function(err,response) {
 			if(!err) {
 				console.log("record deleted");
