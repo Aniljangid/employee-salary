@@ -3,6 +3,7 @@ $(document).ready(function(){
     var FormData = {
       empId: $('#empid').val(),
       empName: $('#empname').val(),
+      empPassword: $('#emppassword').val(),
       phone: $('#empphnum').val(),
       basicPay: $('#empbasic').val()
     };
