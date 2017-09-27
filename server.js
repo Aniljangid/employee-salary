@@ -74,12 +74,12 @@ app.get('/dashboard', checkAuth, function(req,res) {
 });
 
 
-app.get('/addEmp', checkAuth, function(req,res) {
+app.get('/addemp', checkAuth, function(req,res) {
   res.sendFile(path.join(__dirname + '/Addemp.html'));
 });
 
-app.post('/addemp', function(req,res) {
-	res.send({redirect:'/addEmp',result:'success'});
+app.post('/addEmp', function(req,res) {
+	res.send({redirect:'/addemp',result:'success'});
 });
 
 app.post('/login', function(req,res) {
@@ -108,10 +108,11 @@ app.post('/insert', function(req,res) {
 	console.log('here');
 	var empId = req.body.empId;
 	var empName = req.body.empName;
+	var empPassword = req.body.empPassword;
 	var phone = req.body.phone;
 	var basicPay = req.body.basicPay;
 	if(req.session.admin_password) {
-		conn.query('INSERT INTO empdetails (id,name,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?)',[empId,empName,phone,basicPay,0,0,0], function(err) {
+		conn.query('INSERT INTO empdetails (id,name,password,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?,?)',[empId,empName,empPassword,phone,basicPay,0,0,0], function(err) {
 			console.log(err);
 			if(!err) {
 				console.log('Insertion successfull');
@@ -174,16 +175,17 @@ app.post('/delete',function(req,res) {
 	}
 })
 
-app.post('/updateatt',function(req,res){
+app.post('/updateAtt',function(req,res){
 	var arr = [];
-	for(var i=0; i<req.body.empatt.length; i++){
-		var id = req.body.empatt[i];
+	var attendance = req.body.empAtt; 
+	for(var i=0; i < attendance.length; i++){
+		var id = attendance[i];
 		console.log("id: "+id);
 		conn.query('SELECT * FROM empdetails WHERE id = ?',[id],function(err,response) {
 			att =  response[0].att + 1;
 			total = response[0].basicpay * att - response[0].adv;
-			empid = response[0].id;
-			conn.query('UPDATE empdetails SET att = ?, totalsal = ? WHERE id = ?',[att,total,empid],function(err,response){
+			empId = response[0].id;
+			conn.query('UPDATE empdetails SET att = ?, totalsal = ? WHERE id = ?',[att,total,empId],function(err,response){
 				if(!err){
 					console.log("inserted");
 					console.log(response);
@@ -196,18 +198,18 @@ app.post('/updateatt',function(req,res){
 	res.send({redirect:'/dashboard'})
 })
 
-app.post('/saveedit',function(req,res){
-	var empid = req.body.empid;
-	var empname = req.body.empname;
-	var phnum = req.body.phnum;
-	var empatt = req.body.empatt;
-	var basicpay = req.body.basicpay;
-	var empadv = req.body.empadv;
-	var emptotal = req.body.emptotal;
+app.post('/saveEdit',function(req,res){
+	var empId = req.body.empid;
+	var empName = req.body.empname;
+	var phNum = req.body.phnum;
+	var empAtt = req.body.empatt;
+	var basicPay = req.body.basicpay;
+	var empAdv = req.body.empadv;
+	var empTotal = req.body.emptotal;
 	
-	var tot = basicpay * empatt - empadv;
+	var tot = basicPay * empAtt - empAdv;
 	
-	conn.query('UPDATE empdetails SET name = ?, phnum = ?, basicpay = ?, adv = ?, att = ?, totalsal = ? WHERE id = ?',[empname, phnum, basicpay, empadv, empatt, tot, empid],function(err,response){
+	conn.query('UPDATE empdetails SET name = ?, phnum = ?, basicpay = ?, adv = ?, att = ?, totalsal = ? WHERE id = ?',[empName, phNum, basicPay, empAdv, empAtt, tot, empId],function(err,response){
 		if (!err) {
 			console.log("edit successfull");
 		} else {
