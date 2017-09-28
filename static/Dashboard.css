@@ -52,7 +52,146 @@
 
 .infobox{
   width: 100%;
-  height: 200px;
-  background-color: red;
-  margin: 2px;
+  margin: 0.33%;
+  padding: 0px !important;
+}
+
+.box-id-name{
+  width: 32% !important;
+  background-color: #F44336;
+}
+
+.box-id-att{
+  width: 32% !important;
+  background-color: #E91E63;
+}
+
+.box-id-adv{
+  width: 32% !important;
+  background-color: #9C27B0;
+}
+
+.box-id-basicpay{
+  width: 32% !important;
+  background-color: #00BCD4;
+}
+
+.box-id-total{
+  width: 64.7% !important;
+  background-color: #03A9F4;
+}
+
+.cardbar{
+  width: 100%;
+}
+.cardbody{
+  width: 100%;
+}
+
+.cardbar-name{
+  background-color: #D32F2F;
+}
+
+.cardbar-att{
+  background-color: #C2185B;
+}
+
+.cardbar-adv{
+  background-color: #7B1FA2;
+}
+
+.cardbar-basicpay{
+  background-color: #0097A7;
+}
+
+.cardbar-total{
+  background-color: #0288D1;
+}
+
+.cardbar-text{
+  margin: 0px;
+  color: #ffffff;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cardbody-text{
+  margin: 0px;
+  color: #ffffff;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 5em;
+}
+
+.charset{
+  width: 25;
+}
+.cardsize{
+  width: 31% !important;
+  margin: 1%;
+}
+
+}
+
+
+@media screen and (max-width: 580px) {
+    .box-id-name{
+      width: 48% !important;
+    }
+
+    .box-id-att{
+      width: 48% !important;
+    }
+
+    .box-id-adv{
+      width: 48% !important;
+    }
+
+    .box-id-basicpay{
+      width: 48% !important;
+    }
+
+    .box-id-total{
+      width: 97% !important;
+    }
+    
+    .cardbar-text{
+      font-size: 15px;
+    }
+    
+    .cardbody-text{
+      font-size: 3em;
+    }
+}
+
+@media screen and (max-width: 767px) {
+  
+    .box-id-name{
+      width: 48% !important;
+    }
+
+    .box-id-att{
+      width: 48% !important;
+    }
+
+    .box-id-adv{
+      width: 48% !important;
+    }
+
+    .box-id-basicpay{
+      width: 48% !important;
+    }
+
+    .box-id-total{
+      width: 97% !important;
+    }
+    
+    .cardbody-text{
+      font-size: 4em;
+    }
+    
 }
