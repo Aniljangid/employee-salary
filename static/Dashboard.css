@@ -54,6 +54,7 @@
   width: 100%;
   margin: 0.33%;
   padding: 0px !important;
+   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .box-id-name{
@@ -115,6 +116,7 @@
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  font-family: 'Roboto', sans-serif;
 }
 
 .cardbody-text{
@@ -192,6 +194,10 @@
     
     .cardbody-text{
       font-size: 4em;
+    }
+    
+    .cardbar-text{
+      font-size: 15px;
     }
     
 }

@@ -17,12 +17,12 @@ $(document).ready(function(){
     // $('.tablerow' + 0).append('<td>' + res.result[0].basicpay + '</td>')
     // $('.tablerow' + 0).append('<td>' + res.result[0].adv + '</td>')
     // $('.tablerow' + 0).append('<td>' + res.result[0].totalsal + '</td>')
-    
+    $('.cardbar-text-id').append(res.result[0].name.toUpperCase() + "\'S ID" )
     $('.cardbody-name').append('<h1 class="cardbody-text">' + res.result[0].id + '</h1>')
     $('.cardbody-att').append('<h1 class="cardbody-text">' + res.result[0].att + '</h1>')
-    $('.cardbody-adv').append('<h1 class="cardbody-text">' + res.result[0].adv + '</h1>')
-    $('.cardbody-basicpay').append('<h1 class="cardbody-text">' + res.result[0].basicpay + '</h1>')
-    $('.cardbody-total').append('<h1 class="cardbody-text">' + res.result[0].totalsal + '</h1>')
+    $('.cardbody-adv').append('<h1 class="cardbody-text">' + res.result[0].adv + "₹" + '</h1>')
+    $('.cardbody-basicpay').append('<h1 class="cardbody-text">' + res.result[0].basicpay + "₹" + '</h1>')
+    $('.cardbody-total').append('<h1 class="cardbody-text">' + res.result[0].totalsal + "₹" + '</h1>')
   })
   
   $('.logoutbtn').click(function(){
