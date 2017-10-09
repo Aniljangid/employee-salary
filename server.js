@@ -113,11 +113,11 @@ app.post('/login', function(req,res) {
 });
 
 app.post('/loginEmp', function(req,res) {
-	var userId = req.body.id;
+	var username = req.body.id;
 	var password = req.body.password;
 	console.log(username);
 	console.log(password);
-	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[userId,password], function(err,response){
+	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[username,password], function(err,response){
 		if(!err&&response[0]!=null){
 			try {
 				req.session.employee = username;
