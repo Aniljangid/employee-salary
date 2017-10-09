@@ -113,10 +113,12 @@ app.post('/login', function(req,res) {
 });
 
 app.post('/loginEmp', function(req,res) {
-	var username = req.body.id;
+	var userId = req.body.id;
 	var password = req.body.password;
-	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[username,password], function(err,response){
-		if(!err){
+	console.log(username);
+	console.log(password);
+	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[userId,password], function(err,response){
+		if(!err&&response[0]!=null){
 			try {
 				req.session.employee = username;
 				console.log("success");
@@ -127,8 +129,10 @@ app.post('/loginEmp', function(req,res) {
 				console.log("Incorrect password");
 			}
 		}
-		else
-			console.log(err);
+		else {
+			res.send({redirect:'/',result:'invalid'});
+			console.log("Incorrect password");
+		}
 	})
 })
 
@@ -236,7 +240,6 @@ app.post('/updateAtt',function(req,res){
 			conn.query('UPDATE empdetails SET att = ?, totalsal = ? WHERE id = ?',[att,total,empId],function(err,response){
 				if(!err){
 					console.log("inserted");
-					console.log(response);
 				} else {
 					console.log("error: " + err);
 				}

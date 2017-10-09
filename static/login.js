@@ -56,7 +56,7 @@ $(document).ready(function(){  //loads when the page is loaded
         $('.errordiv').css('display', 'none'); 
         window.location = res.redirect;
       }
-      if(res.result == "invalid"){
+      else if(res.result == "invalid"){
         $('.errordiv').css('display', 'block');
       }
     })
