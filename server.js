@@ -180,13 +180,13 @@ app.post('/insert', function(req,res) {
 app.post('/display',function(req,res) {
 	var count;
 	if(req.session.admin) {
-		conn.query('SELECT count(*) AS count FROM empdetails',function(err,res) {
+		conn.query('SELECT count(*) AS count FROM empdetails WHERE companyName = ?',[req.session.admin],function(err,res) {
 			if(!err) {
 				count = res;	
 			}
 			
 		}); 
-		conn.query('SELECT * FROM empdetails',function(err,response) { //names response to avoid conflict
+		conn.query('SELECT * FROM empdetails WHERE companyName = ?',[req.session.admin],function(err,response) { //names response to avoid conflict
 			if(!err) {
 				//console.log(response);
 				res.send({count:count,result:response});
