@@ -92,13 +92,14 @@ app.get('/dashboardEmp', checkAuthEmp, function(req,res) {
 
 app.post('/login', function(req,res) {
 	console.log(req.body.password);
+	var company = req.body.companyName;
 	var password = req.body.password;
 	if(!req.session.admin) {
-		conn.query('SELECT * FROM admin WHERE admin_password = ?',[password], function(error,response) {
+		conn.query('SELECT * FROM admin WHERE admin_company = ? AND admin_password = ?',[company,password], function(error,response) {
 			if(!error){
 				if(response[0]) {
 					console.log("success");
-					req.session.admin = password;
+					req.session.admin = company;
 					res.send({redirect:'/dashboard',result:'success'});
 				}
 				else {
@@ -115,9 +116,7 @@ app.post('/login', function(req,res) {
 app.post('/loginEmp', function(req,res) {
 	var username = req.body.id;
 	var password = req.body.password;
-	console.log(username);
-	console.log(password);
-	conn.query('SELECT * FROM empdetails WHERE id = ? AND password = ?',[username,password], function(err,response){
+	conn.query('SELECT * FROM empdetails WHERE  id = ? AND password = ?',[username,password], function(err,response){
 		if(!err&&response[0]!=null){
 			try {
 				req.session.employee = username;
@@ -158,13 +157,14 @@ app.post('/addEmp', function(req,res) {
 
 app.post('/insert', function(req,res) {
 	console.log('here');
-	var empId = req.body.empId;
+	var empId = req.body.empId + "@" + req.session.admin;
 	var empName = req.body.empName;
 	var empPassword = req.body.empPassword;
 	var phone = req.body.phone;
 	var basicPay = req.body.basicPay;
+	var company = req.session.admin;
 	if(req.session.admin) {
-		conn.query('INSERT INTO empdetails (id,name,password,phnum,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?,?)',[empId,empName,empPassword,phone,basicPay,0,0,0], function(err) {
+		conn.query('INSERT INTO empdetails (id,name,password,phnum,companyName,basicpay,adv,att,totalsal) values (?,?,?,?,?,?,?,?,?)',[empId,empName,empPassword,phone,company,basicPay,0,0,0], function(err) {
 			console.log(err);
 			if(!err) {
 				console.log('Insertion successfull');
