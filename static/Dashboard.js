@@ -20,7 +20,7 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td><button type="button" id="editbtn' + res.result[i].id + '" class="btn btn-primary editbtn">Edit</button></td>')
        $('.tablerow' + i).append('<td><button type="button" id="delbtn' + res.result[i].id + '" class="btn btn-primary delbtn">delete</button></td>')
      }
-     
+
      $(".editbtn").click(function(){
          $("#myModal").modal();
          var editbtn_id = $(this).attr('id');
@@ -38,24 +38,33 @@ $(document).ready(function(){
            $('#basicpay').val(res.result[0].basicpay);
            $('#advance').val(res.result[0].adv);
            $('#total').val(res.result[0].totalsal);
-         })   
+         })
      });
-     
+
      $('.delbtn').click(function() {
-       var r = confirm("Are you sure you want to delete?");
-       if(r == true){
-         console.log("HERE")
-         var delbtn_id = $(this).attr('id');
-         var delresult = delbtn_id.substring(6);
+       var delbtn_id = $(this).attr('id');
+      var delresult = delbtn_id.substring(6);
+       $("#delmodal").modal();
+       $('#del').addClass(delresult);
+       });
+
+       $('#del').click(function() {
+         var delpassword = $('#delpassword').val();
+
+          console.log("HERE" + delpassword);
+
+        var delbtn_id = $('#del').attr('class');
+        var delresult = delbtn_id[delbtn_id.length -1];
+        console.log(delresult);
          $.ajax({
            type: 'POST',
            url: 'http://localhost:5555/delete',
-           data: { delresult : delresult },//attach clicked button id here
+           data: { delresult : delresult,
+                    delpassword: delpassword},//attach clicked button id here
            encode: true
          }).done(function(res){
            window.location = res.redirect;
          })
-       }
       });
 
      $('.chkall').click(function() {
@@ -93,7 +102,7 @@ $(document).ready(function(){
       console.log("array is empty");
     }
   });
-  
+
 })
 
 
@@ -107,7 +116,7 @@ $('#saveedit').click(function(){
      empadv : $('#advance').val(),
      emptotal : $('#total').val()
   };
-  
+
   $.ajax({
     type: 'POST',
     url: 'http://localhost:5555/saveEdit',
