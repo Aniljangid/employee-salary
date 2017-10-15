@@ -214,14 +214,23 @@ app.post('/edit',function(req,res) {
 
 app.post('/delete',function(req,res) {
 	var id = req.body.delresult;
+	var delpassword = req.body.delpassword;
 	console.log(id);
 	if(req.session.admin) {
-		conn.query('DELETE FROM empdetails WHERE id = ?',[id],function(err,response) {
-			if(!err) {
-				console.log("record deleted");
-				res.send({redirect:'/dashboard',result:response})
-			} else {
-				console.log("error: " + err);
+		
+		conn.query('SELECT * FROM admin',function(err,response){
+			adminPw = response[0].admin_password;
+			if (!err) {
+				if (delpassword == adminPw) {
+					conn.query('DELETE FROM empdetails WHERE id = ?',[id],function(err,response) {
+						if(!err) {
+							console.log("record deleted");
+							res.send({redirect:'/dashboard',result:response})
+						} else {
+							console.log("error: " + err);
+						}
+					})
+				}
 			}
 		})
 	}
