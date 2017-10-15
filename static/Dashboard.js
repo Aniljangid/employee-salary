@@ -52,15 +52,19 @@ $(document).ready(function(){
          var delpassword = $('#delpassword').val();
 
           console.log("HERE" + delpassword);
-
         var delbtn_id = $('#del').attr('class');
-        var delresult = delbtn_id[delbtn_id.length -1];
+        console.log(delbtn_id);
+        var splitclasses = delbtn_id.split(" ");
+        var delresult = splitclasses[splitclasses.length - 1]
         console.log(delresult);
+        var FormData = {
+            delresult : delresult,
+            delpassword: delpassword
+        };
          $.ajax({
            type: 'POST',
            url: 'http://localhost:5555/delete',
-           data: { delresult : delresult,
-                    delpassword: delpassword},//attach clicked button id here
+           data: FormData,//attach clicked button id here
            encode: true
          }).done(function(res){
            window.location = res.redirect;
