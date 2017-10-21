@@ -19,7 +19,33 @@ $(document).ready(function(){
        $('.tablerow' + i).append('<td>' + res.result[i].totalsal + '</td>')
        $('.tablerow' + i).append('<td><button type="button" id="editbtn' + res.result[i].id + '" class="btn btn-primary editbtn">Edit</button></td>')
        $('.tablerow' + i).append('<td><button type="button" id="delbtn' + res.result[i].id + '" class="btn btn-primary delbtn">delete</button></td>')
+       $('.tablerow' + i).append('<td><button type="button" id="prtbtn' + res.result[i].id + '" class="btn btn-primary prtbtn">print</button></td>')
      }
+
+     $(".prtbtn").click(function(){
+         $("#myPrintModal").modal();
+         var prtbtn_id = $(this).attr('id');
+         var result = prtbtn_id.substring(6);    
+         console.log(result);
+         $.ajax({
+           type: 'POST',
+           data: { result : result },
+           url: 'http://localhost:5555/edit',
+           encode: true
+       }).done(function(res){
+           console.log(res);
+           $('.print-empid').text(res.result[0].id)
+           $('.print-empname').text(res.result[0].name)
+           $('.print-att').text(res.result[0].att)
+           $('.print-wages').text(res.result[0].basicpay)
+           $('.print-adv').text(res.result[0].adv)
+           $('.print-total').text(res.result[0].totalsal)
+       })
+     });
+
+     $('#savePrint').click(function(e){
+         //write the code here to print #print-Content div 
+     })
 
      $(".editbtn").click(function(){
          $("#myModal").modal();
@@ -108,7 +134,6 @@ $(document).ready(function(){
   });
 
 })
-
 
 $('#saveedit').click(function(){
   var FormData={
