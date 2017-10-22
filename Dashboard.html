@@ -111,19 +111,19 @@
         </div>
       </div>
     </div>
-    
-    <div class="container">
+
+    <div class="container printo">
       <div class="modal fade" id="myPrintModal" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
               <div id="print-Content">
-            <div class="modal-header" style="padding:35px 50px;">
+            <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h2>WAGESMGT</h2>
             </div>
-            <div class="modal-body" style="padding:40px 50px;">
+            <div class="modal-body" style="padding:20px 50px;">
               <form role="form">
-                  
+
                       <div class="row">
                     <div class="form-group col-xs-12">
                       <h3>Employee ID:  <span class="print-empid"></span> </h3>
@@ -147,16 +147,24 @@
                         </div>
                   </div>
                   </div>
-                  
-                  <button id="savePrint" type="submit" class="btn btn-success btn-primary pull-right">Confirm Print</button>
-                  
+                  <div class="modal-footer">
+                  <button id="savePrint" type="submit" onclick="window.print()" class="btn btn-success pritt pull-right">Confirm Print</button>
+                  </div>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+    <style>
+    @media print{
+      body * {visibility: hidden;}
+      .printo * {visibility: visible;}
+      .pritt {display: none}
+      .close {display: none}
+    }
+    @page { size: auto;  margin: 0mm; }
+    </style>
     <div class="container">
       <input type="button" class="btn btn-primary addatt" name="addatt" id="addatt" value="Add Attendence">
     </div>
