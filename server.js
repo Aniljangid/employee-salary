@@ -90,10 +90,6 @@ app.get('/dashboardEmp', checkAuthEmp, function(req,res) {
 	res.sendFile(path.join(__dirname + '/EmployeeDashboard.html'));
 })
 
-app.get('/printEmp', checkAuthEmp, function(req,res) {
-	req.session.dontGoBack = "true";
-	res.sendFile(path.join(__dirname + '/Empinvoice.html'));
-})
 
 app.post('/login', function(req,res) {
 	console.log(req.body.password);
@@ -278,17 +274,4 @@ app.post('/saveEdit',function(req,res){
 
 app.listen(5555,function(){
 	console.log("Server running at port 5555");
-})
-
-app.post('/print', function(req,res) {
-	if(req.session.employee) {
-		conn.query('SELECT * FROM empdetails WHERE id=?',[req.session.employee], function(err,response) {
-			if(!err) {
-				console.log("fetched");
-			} else {
-				console.log("errrroe");
-			}
-		})
-	}
-	res.send({redirect:'/printEmp'})
 })
