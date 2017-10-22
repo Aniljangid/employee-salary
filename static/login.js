@@ -20,7 +20,7 @@ $(function() {
 $(document).ready(function(){  //loads when the page is loaded
   $("#admin-submit").click(function(e){ // executes the function when clicked on admin-submit button
     e.preventDefault();
-    var companyName = $('#admin_password').val()
+    var companyName = $('#admin_company').val()
     var password = $('#admin_password').val() // fethes the value of password from textbox
     $.ajax({          // ajax call is used to send data to backend (php)
       type: 'POST',   // type of request (POST or GET)
@@ -39,23 +39,23 @@ $(document).ready(function(){  //loads when the page is loaded
       }
     })
   })
-  
+
   $("#emp-submit").click(function(e){
     e.preventDefault();
     var FormData = {
       password : $('#emp_password').val(),
       id : $('#emp_username').val()
     };
-    
-    $.ajax({          
-      type: 'POST',  
+
+    $.ajax({
+      type: 'POST',
       url: 'http://localhost:5555/loginEmp',
-      data: FormData,   
+      data: FormData,
       datatype: 'json',
       encode: true
-    }).done(function(res) {   
+    }).done(function(res) {
       if(res.result=="success") {
-        $('.errordiv').css('display', 'none'); 
+        $('.errordiv').css('display', 'none');
         window.location = res.redirect;
       }
       else if(res.result == "invalid"){

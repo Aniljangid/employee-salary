@@ -11,7 +11,7 @@ var conn = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
 	password : '',
-	db : 'empsalmgt'
+	db : 'empsalmgt',
 })
 
 conn.connect(function(err) {
@@ -37,7 +37,7 @@ app.use(session({
 
 app.use(express.static('static'));
 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 function noCache(req, res, next) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -67,7 +67,7 @@ app.get('/',noCache,function(req,res){
 		res.redirect('/dashboard');
 	}
 	else if(req.session.employee) {
-		res.redirect('/dashboardEmp');	
+		res.redirect('/dashboardEmp');
 	}
 	else {
 		res.sendFile(path.join(__dirname + '/login.html'));
@@ -78,7 +78,7 @@ app.get('/logout', function (req, res) {
   delete req.session.admin;
   delete req.session.employee;
   res.send({redirect:'/',result:'logout'});
-}); 
+});
 
 app.get('/dashboard', checkAuth, function(req,res) {
 	req.session.dontGoBack = "true";
@@ -88,6 +88,11 @@ app.get('/dashboard', checkAuth, function(req,res) {
 app.get('/dashboardEmp', checkAuthEmp, function(req,res) {
 	req.session.dontGoBack = "true";
 	res.sendFile(path.join(__dirname + '/EmployeeDashboard.html'));
+})
+
+app.get('/printEmp', checkAuthEmp, function(req,res) {
+	req.session.dontGoBack = "true";
+	res.sendFile(path.join(__dirname + '/Empinvoice.html'));
 })
 
 app.post('/login', function(req,res) {
@@ -145,16 +150,6 @@ app.get('/getDetails', function(req,res) {
 	}
 })
 
-app.get('/addemp', checkAuth, function(req,res) {
-  res.sendFile(path.join(__dirname + '/Addemp.html'));
-});
-
-app.post('/addEmp', function(req,res) {
-	if(req.session.admin) {
-		res.send({redirect:'/addemp',result:'success'});
-	}
-});
-
 app.post('/insert', function(req,res) {
 	console.log('here');
 	var empId = req.body.empId + "@" + req.session.admin;
@@ -182,10 +177,10 @@ app.post('/display',function(req,res) {
 	if(req.session.admin) {
 		conn.query('SELECT count(*) AS count FROM empdetails WHERE companyName = ?',[req.session.admin],function(err,res) {
 			if(!err) {
-				count = res;	
+				count = res;
 			}
-			
-		}); 
+
+		});
 		conn.query('SELECT * FROM empdetails WHERE companyName = ?',[req.session.admin],function(err,response) { //names response to avoid conflict
 			if(!err) {
 				//console.log(response);
@@ -217,7 +212,7 @@ app.post('/delete',function(req,res) {
 	var delpassword = req.body.delpassword;
 	console.log(id);
 	if(req.session.admin) {
-		
+
 		conn.query('SELECT * FROM admin',function(err,response){
 			adminPw = response[0].admin_password;
 			if (!err) {
@@ -226,10 +221,12 @@ app.post('/delete',function(req,res) {
 						if(!err) {
 							console.log("record deleted");
 							res.send({redirect:'/dashboard',result:response})
-						} else {
-							console.log("error: " + err);
 						}
 					})
+				}
+				else {
+					console.log("error");
+					res.send({result:"failed"});
 				}
 			}
 		})
@@ -238,7 +235,7 @@ app.post('/delete',function(req,res) {
 
 app.post('/updateAtt',function(req,res){
 	var arr = [];
-	var attendance = req.body.empAtt; 
+	var attendance = req.body.empAtt;
 	for(var i=0; i < attendance.length; i++){
 		var id = attendance[i];
 		console.log("id: "+id);
@@ -266,9 +263,9 @@ app.post('/saveEdit',function(req,res){
 	var basicPay = req.body.basicpay;
 	var empAdv = req.body.empadv;
 	var empTotal = req.body.emptotal;
-	
+
 	var tot = basicPay * empAtt - empAdv;
-	
+
 	conn.query('UPDATE empdetails SET name = ?, phnum = ?, basicpay = ?, adv = ?, att = ?, totalsal = ? WHERE id = ?',[empName, phNum, basicPay, empAdv, empAtt, tot, empId],function(err,response){
 		if (!err) {
 			console.log("edit successfull");
@@ -283,3 +280,15 @@ app.listen(5555,function(){
 	console.log("Server running at port 5555");
 })
 
+app.post('/print', function(req,res) {
+	if(req.session.employee) {
+		conn.query('SELECT * FROM empdetails WHERE id=?',[req.session.employee], function(err,response) {
+			if(!err) {
+				console.log("fetched");
+			} else {
+				console.log("errrroe");
+			}
+		})
+	}
+	res.send({redirect:'/printEmp'})
+})

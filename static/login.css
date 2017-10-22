@@ -1,5 +1,8 @@
 body {
     padding-top: 90px;
+    background-image: url("https://protocol46.com/wp-content/uploads/2016/04/Grey-Texture-Background-and-Wallpaper-22.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .panel-login {
 	border-color: #ccc;
