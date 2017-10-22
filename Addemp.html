@@ -17,7 +17,13 @@
           <button type="button" class="navbar-toggle" data-target="#myNavbar">
               <a href="login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
              </button>
-          <p class="navbar-text">DASHBOARD</p>
+             <button type="button" class="navbar backbutton" onclick="goBack()"><span class="glyphicon glyphicon-chevron-left pull-left"></span></button>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
@@ -48,7 +54,6 @@
 <input type="button" class="btn btn-primary pull-right" name="saveemp" id="saveemp" value="Save">
         </div>
       </form>
-    </div>
-    <script src="addemp.js"></script>
+    </div>ß
   </body>
 </html>

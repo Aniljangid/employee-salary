@@ -93,7 +93,12 @@ $(document).ready(function(){
            data: FormData,//attach clicked button id here
            encode: true
          }).done(function(res){
-           window.location = res.redirect;
+           if(res.result=="failed") {
+             $('.errorr').css("display","block");
+           }
+           else {
+             window.location = res.redirect;
+           }
          })
       });
 
@@ -169,15 +174,9 @@ $('#saveedit').click(function(){
   })
 
   $('.add').click(function(){
-    console.log("test");
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:5555/addEmp',
-      encode: true
-    }).done(function(res){
-      window.location = res.redirect;
-    })
+    $('#addmodal').modal();
   })
+
   $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
@@ -185,12 +184,3 @@ $('#saveedit').click(function(){
 });
 
 })
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-
-}

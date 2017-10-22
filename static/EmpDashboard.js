@@ -3,7 +3,7 @@ $(document).ready(function(){
   $('.infobox').height(width);
   $('.cardbar').height(width * 18 / 100);
   $('.cardbody').height(width * 82 / 100);
-  
+
   $.ajax({
     type: 'GET',
     url: 'http://localhost:5555/getDetails',
@@ -24,7 +24,7 @@ $(document).ready(function(){
     $('.cardbody-basicpay').append('<h1 class="cardbody-text">' + "₹" + res.result[0].basicpay + '</h1>')
     $('.cardbody-total').append('<h1 class="cardbody-text">' + "₹" + res.result[0].totalsal + '</h1>')
   })
-  
+
   $('.logoutbtn').click(function(){
     $.ajax({
       type: 'GET',
@@ -33,7 +33,7 @@ $(document).ready(function(){
     }).done(function(res){
       window.location = res.redirect;
     })
-  })  
+  })
 })
 
 $(window).resize(function(){
@@ -41,4 +41,35 @@ $(window).resize(function(){
   $('.infobox').height(width);
   $('.cardbar').height(width * 18 / 100);
   $('.cardbody').height(width * 82 / 100);
+})
+
+$('.invoice').click(function(){
+  console.log("CLICKED");
+   $("#printo").modal();
+})
+
+$(document).ready(function(){
+
+  $.ajax({
+    type: 'GET',
+    url: 'http://localhost:5555/getDetails',
+    encode: true
+  }).done(function(res){
+    // console.log(res.result[0].id);
+    // $('.table-body').append('<tr class="tablerow' + 0 + ' tablerow"></tr>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].id + '</td>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].name + '</td>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].att + '</td>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].basicpay + '</td>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].adv + '</td>')
+    // $('.tablerow' + 0).append('<td>' + res.result[0].totalsal + '</td>')
+    $('.compname').append( '<br>' + res.result[0].companyName.toUpperCase() )
+    $('.getid').append('Employee ID: ' + res.result[0].id + '<br>' + 'Name: ' +res.result[0].name.toUpperCase() + '<br>' + 'Mob no: ' + res.result[0].phnum )
+    $('.attname').append( res.result[0].name.toUpperCase() )
+    $('.attno').append( res.result[0].att )
+    $('.basicpay').append( res.result[0].basicpay )
+    $('.advan').append( res.result[0].adv )
+    $('.total').append( 'Total: ' + res.result[0].totalsal )
+  })
+
 })
